@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h1>🔍 Explore Trends</h1>
+    <h2>Browse the full merged trend feed.</h2>
+</header>
+
+<form class="toolbar toolbar-form js-type-toggle" method="get">
+    <input type="text" id="search" class="js-feed-search" placeholder="Search all trends...">
+    {% set toggle_id_prefix = "explore-type" %}
+    {% include "_period_toggle.html" %}
+</form>
+
+<section class="repo-list">
+    {% for item in items %}
+        {% include "_trend_card.html" %}
+    {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

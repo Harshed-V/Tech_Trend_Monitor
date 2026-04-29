@@ -1,0 +1,121 @@
+[
+  {
+    "checked_at": "2026-04-26T03:46:55+00:00",
+    "date": "2026-04-26",
+    "type": "weekly",
+    "min_stars": 1000,
+    "repo_count": 8,
+    "top_repo": "Kami",
+    "highest_stars": 3283
+  },
+  {
+    "checked_at": "2026-04-26T03:46:59+00:00",
+    "date": "2026-04-26",
+    "type": "weekly",
+    "min_stars": 0,
+    "repo_count": 10,
+    "top_repo": "Kami",
+    "highest_stars": 3283
+  },
+  {
+    "checked_at": "2026-04-26T03:47:20+00:00",
+    "date": "2026-04-26",
+    "type": "daily",
+    "min_stars": 0,
+    "repo_count": 10,
+    "top_repo": "Hermes",
+    "highest_stars": 3
+  },
+  {
+    "checked_at": "2026-04-26T03:50:11+00:00",
+    "date": "2026-04-26",
+    "source": "github",
+    "type": "daily",
+    "min_stars": 0,
+    "repo_count": 10,
+    "top_repo": "Hermes",
+    "highest_stars": 3
+  },
+  {
+    "checked_at": "2026-04-26T03:50:14+00:00",
+    "date": "2026-04-26",
+    "source": "devto",
+    "type": "weekly",
+    "min_stars": 0,
+    "repo_count": 10,
+    "top_repo": "Tune In and Join the Google Cloud NEXT '26 Writing Challenge: $1,000 in Prizes!",
+    "highest_stars": 140
+  },
+  {
+    "checked_at": "2026-04-26T03:55:02+00:00",
+    "date": "2026-04-26",
+    "source": "merged",
+    "type": "weekly",
+    "repo_count": 20,
+    "top_repo": "Kami",
+    "highest_score": 3284
+  },
+  {
+    "checked_at": "2026-04-26T03:55:33+00:00",
+    "date": "2026-04-26",
+    "source": "merged",
+    "type": "daily",
+    "repo_count": 20,
+    "top_repo": "Google Cloud NEXT '26: A FULL STACK Developer\u2019s Take on Cloud Run & AI",
+    "highest_score": 53
+  },
+  {
+    "checked_at": "2026-04-26T03:59:06+00:00",
+    "date": "2026-04-26",
+    "source": "merged",
+    "type": "daily",
+    "repo_count": 37,
+    "top_repo": "1-Bit Hokusai's \"The Great Wave\" (2023)",
+    "highest_score": 535
+  },
+  {
+    "checked_at": "2026-04-26T04:02:05+00:00",
+    "date": "2026-04-26",
+    "source": "merged",
+    "type": "daily",
+    "repo_count": 37,
+    "top_repo": "1-Bit Hokusai's \"The Great Wave\" (2023)",
+    "highest_score": 536
+  },
+  {
+    "checked_at": "2026-04-26T04:04:34+00:00",
+    "date": "2026-04-26",
+    "source": "merged",
+    "type": "daily",
+    "repo_count": 37,
+    "top_repo": "1-Bit Hokusai's \"The Great Wave\" (2023)",
+    "highest_score": 536
+  },
+  {
+    "checked_at": "2026-04-26T04:11:24+00:00",
+    "date": "2026-04-26",
+    "source": "merged",
+    "type": "daily",
+    "repo_count": 37,
+    "top_repo": "1-Bit Hokusai's \"The Great Wave\" (2023)",
+    "highest_score": 536
+  },
+  {
+    "checked_at": "2026-04-26T04:12:01+00:00",
+    "date": "2026-04-26",
+    "source": "merged",
+    "type": "weekly",
+    "repo_count": 40,
+    "top_repo": "Kami",
+    "highest_score": 3286
+  },
+  {
+    "checked_at": "2026-04-27T05:08:38+00:00",
+    "date": "2026-04-27",
+    "source": "merged",
+    "type": "weekly",
+    "repo_count": 30,
+    "top_repo": "guizang-ppt-skill",
+    "highest_score": 3121
+  }
+]

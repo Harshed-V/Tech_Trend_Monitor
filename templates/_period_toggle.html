@@ -1,0 +1,25 @@
+{% set toggle_id_prefix = toggle_id_prefix | default("trend-type") %}
+<div class="period-toggle" role="radiogroup" aria-label="Trend period">
+    <input
+        class="period-toggle-input period-toggle-input-daily"
+        type="radio"
+        id="{{ toggle_id_prefix }}-daily"
+        name="type"
+        value="daily"
+        {% if selected_type == "daily" %}checked{% endif %}
+    >
+    <label class="period-toggle-label period-toggle-label-daily" for="{{ toggle_id_prefix }}-daily">Daily</label>
+
+    <input
+        class="period-toggle-input period-toggle-input-weekly"
+        type="radio"
+        id="{{ toggle_id_prefix }}-weekly"
+        name="type"
+        value="weekly"
+        {% if selected_type != "daily" %}checked{% endif %}
+    >
+    <label class="period-toggle-label period-toggle-label-weekly" for="{{ toggle_id_prefix }}-weekly">Weekly</label>
+
+    <span class="period-toggle-glow" aria-hidden="true"></span>
+    <span class="period-toggle-knob" aria-hidden="true"></span>
+</div>

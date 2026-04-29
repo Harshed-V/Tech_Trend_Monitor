@@ -1,0 +1,90 @@
+import os
+
+css_additions = """
+/* Card Component Styles */
+.trend-card { position: relative; overflow: hidden; padding: 24px; cursor: pointer; display: flex; flex-direction: column; }
+.card-ambient-glow { position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15), transparent 70%); pointer-events: none; }
+.trend-card:hover .card-ambient-glow { opacity: 1; }
+.card-header-row { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.card-content { min-width: 0; }
+.card-meta-row { display: flex; align-items: center; gap: 8px; }
+.card-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border-color); }
+.card-title { margin-top: 8px; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-title a { color: var(--text-main); text-decoration: none; }
+.card-desc { margin-top: 6px; font-size: 14px; line-height: 1.6; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-spark-container { flex-shrink: 0; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-surface-solid); padding: 8px; }
+.card-spark-svg { height: 32px; width: 120px; }
+.card-why-box { position: relative; margin-top: 20px; border-radius: 12px; border: 1px solid var(--card-inner-border); box-shadow: 0 0 10px rgba(168, 85, 247, 0.05); background: var(--bg-surface); padding: 12px 16px; }
+.card-why-text { font-size: 13px; line-height: 1.6; color: var(--text-main); margin: 0; }
+.card-why-label { color: var(--accent-primary); }
+.card-footer-row { position: relative; margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.card-pill-muted { display: inline-flex; align-items: center; gap: 6px; border-radius: 99px; border: 1px solid var(--border-color); background: var(--bg-surface-solid); padding: 4px 10px; }
+.card-pill-accent { display: inline-flex; align-items: center; gap: 6px; border-radius: 99px; border: 1px solid var(--card-inner-border); background: var(--pill-bg); color: var(--pill-text); padding: 4px 10px; }
+.card-btn-open { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; border-radius: 99px; border: 1px solid var(--card-inner-border); background: var(--bg-surface-solid); padding: 6px 12px; color: var(--text-main); text-decoration: none; transition: all 0.2s; box-shadow: 0 0 10px rgba(168, 85, 247, 0.1); }
+"""
+
+with open('static/css/style.css', 'a', encoding='utf-8') as f:
+    f.write(css_additions)
+
+trend_card_html = """<article class="card trend-card" onclick="if (!event.target.closest('a')) window.open('{{ item.link }}', '_blank');">
+    <div class="card-ambient-glow"></div>
+    <div class="card-header-row">
+        <div class="card-content">
+            <div class="card-meta-row">
+                <span class="font-mono text-[11px] text-muted">#{{ "%02d"|format(loop.index) if loop is defined else '01' }}</span>
+                <span class="card-dot"></span>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-muted">{{ item.source }}</span>
+            </div>
+            <h3 class="card-title">
+                <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
+            </h3>
+            <p class="card-desc">
+                {{ item.description or 'No description available.' }}
+            </p>
+        </div>
+        <div class="card-spark-container">
+            <svg viewBox="0 0 120 32" class="card-spark-svg">
+                <defs>
+                    <linearGradient id="spark-{{ loop.index if loop is defined else '1' }}" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.6" />
+                        <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+                <path d="M0,24 L15,18 L30,22 L45,12 L60,16 L75,8 L90,14 L105,4 L120,10" fill="none" stroke="var(--accent-primary)" stroke-width="1.5" />
+                <path d="M0,24 L15,18 L30,22 L45,12 L60,16 L75,8 L90,14 L105,4 L120,10 L120,32 L0,32 Z" fill="url(#spark-{{ loop.index if loop is defined else '1' }})" />
+            </svg>
+        </div>
+    </div>
+    <div class="card-why-box">
+        <p class="card-why-text">
+            <span class="font-mono text-[11px] uppercase tracking-wider card-why-label">Why trending — </span>
+            {{ item.why_trending }}
+        </p>
+    </div>
+    <div class="card-footer-row">
+        <span class="card-pill-muted font-mono text-[11px] uppercase tracking-widest text-muted">
+            {% if item.source|lower == 'github' %}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.03c3.15-.38 6.5-1.4 6.5-7.17a5.2 5.2 0 0 0-1.5-3.8c.16-.4.65-2-.15-3.8 0 0-1.2-.38-3.9 1.4a13.3 13.3 0 0 0-7 0C6.2 2.5 5 2.88 5 2.88c-.8 1.8-.3 3.4-.15 3.8A5.2 5.2 0 0 0 3 9.8c0 5.77 3.35 6.79 6.5 7.17A4.8 4.8 0 0 0 8 20v2"></path></svg>
+            {% else %}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            {% endif %}
+            {{ item.source }}
+        </span>
+        <span class="card-pill-accent font-mono text-[11px] uppercase tracking-widest">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>
+            {{ item.topic }}
+        </span>
+        <span class="card-pill-muted font-mono text-[11px] uppercase tracking-widest text-muted">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            {{ item.score }} {{ item.score_label }}
+        </span>
+        <a href="{{ item.link }}" target="_blank" class="card-btn-open font-mono text-[11px] uppercase tracking-widest hover-accent">
+            Open
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </a>
+    </div>
+</article>
+"""
+
+with open('templates/_trend_card.html', 'w', encoding='utf-8') as f:
+    f.write(trend_card_html)

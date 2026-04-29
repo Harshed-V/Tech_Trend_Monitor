@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h1>Reports / History</h1>
+    <h2>Send trend digests by email and review your recent local snapshots.</h2>
+</header>
+
+<div class="status-row">
+    <span class="status-pill">
+        {% if smtp_configured %}
+            SMTP Ready
+        {% else %}
+            SMTP Not Configured
+        {% endif %}
+    </span>
+    <span class="status-pill">Snapshots: {{ snapshots | length }}</span>
+    {% if report_from_email %}
+        <span class="status-pill">Sender: {{ report_from_email }}</span>
+    {% endif %}
+</div>
+
+{% if message %}
+<section class="panel reports-alert reports-alert-success">
+    <h3>Report Sent</h3>
+    <p>{{ message }}</p>
+</section>
+{% endif %}
+
+{% if error %}
+<section class="panel reports-alert reports-alert-error">
+    <h3>Send Failed</h3>
+    <p>{{ error }}</p>
+</section>
+{% endif %}
+
+<section class="reports-layout">
+    <article class="panel reports-panel">
+        <div class="reports-panel-header">
+            <h2>Email Report</h2>
+            <p>Share the latest trend summary directly from the dashboard.</p>
+        </div>
+
+        <form action="/send-report" method="post" class="reports-form">
+            <label class="reports-field">
+                <span>Recipient email</span>
+                <input type="email" name="to_email" placeholder="team@example.com" required>
+            </label>
+
+            <label class="reports-field">
+                <span>Report cadence</span>
+                <select name="type">
+                    <option value="weekly">Weekly report</option>
+                    <option value="daily">Daily report</option>
+                </select>
+            </label>
+
+            <button type="submit" class="action-button reports-submit" {% if not smtp_configured %}disabled{% endif %}>
+                Send report
+            </button>
+        </form>
+
+        <div class="reports-note">
+            {% if smtp_configured %}
+                Email delivery is enabled and ready to use.
+            {% else %}
+                Add SMTP settings in your local environment to enable delivery.
+            {% endif %}
+        </div>
+    </article>
+
+    <article class="panel reports-panel">
+        <div class="reports-panel-header">
+            <h2>Recent Snapshots</h2>
+            <p>Stored report history from previous sends.</p>
+        </div>
+
+        {% if snapshots %}
+            <div class="reports-history">
+                
+                {% for snapshot in snapshots | reverse %}
+                <div class="reports-history-item">
+                    <div class="reports-history-top">
+                        <strong>{{ snapshot.date }}</strong>
+                        <span class="pill">{{ snapshot.type | title }}</span>
+                    </div>
+                    <div class="reports-history-meta">
+                        <span>Top repo: {{ snapshot.top_repo }}</span>
+                        <span>Highest score: {{ snapshot.highest_score }}</span>
+                        <span>Signals: {{ snapshot.repo_count }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">+</div>
+                <h3 class="empty-state-title">No Snapshots Yet</h3>
+                <p class="empty-state-text">Send your first report and the recent history will appear here.</p>
+            </div>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

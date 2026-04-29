@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h1>📅 Events / Releases</h1>
+    <h2>Hackathons, launches, releases, challenges, and event-like trend signals.</h2>
+</header>
+
+<form class="toolbar toolbar-form js-type-toggle" method="get">
+    {% set toggle_id_prefix = "events-type" %}
+    {% include "_period_toggle.html" %}
+</form>
+
+<section class="repo-list">
+    {% if items %}
+        {% for item in items %}
+            {% include "_trend_card.html" %}
+        {% endfor %}
+    {% else %}
+        <div class="empty-state" >
+            <div class="empty-state-icon">📭</div>
+            <h3 class="empty-state-title">No Events Found</h3>
+            <p class="empty-state-text">There are no hackathons, launches, or events trending right now. Check back later!</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

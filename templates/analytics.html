@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h1>📊 Detailed Analytics</h1>
+    <h2>{{ total_items }} signals analyzed across platforms and topics.</h2>
+</header>
+
+<form class="toolbar js-type-toggle" method="get">
+    {% set toggle_id_prefix = "analytics-type" %}
+    {% include "_period_toggle.html" %}
+</form>
+
+<section class="analytics-grid">
+    <div class="panel">
+        <h2>Platform-wise Count</h2>
+        {% for label, count in platform_distribution %}
+            <div class="bar-row">
+                <div class="bar-label"><span>{{ label }}</span><strong>{{ count }}</strong></div>
+                <div class="bar"><div class="bar-fill" style="width: {{ count * 100 / total_items if total_items else 0 }}%"></div></div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="panel">
+        <h2>Topic Distribution</h2>
+        {% for label, count in topic_distribution %}
+            <div class="bar-row">
+                <div class="bar-label"><span>{{ label }}</span><strong>{{ count }}</strong></div>
+                <div class="bar"><div class="bar-fill" style="width: {{ count * 100 / total_items if total_items else 0 }}%"></div></div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="panel">
+        <h2>Average Engagement</h2>
+        {% for label, score in average_scores %}
+            <div class="bar-row">
+                <div class="bar-label"><span>{{ label }}</span><strong>{{ score }}</strong></div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
