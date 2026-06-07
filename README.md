@@ -1,4 +1,4 @@
-# Tech Trend Monitor
+# Tech Trend Monitor  
 
 Tech Trend Monitor is a Flask-based web application that aggregates developer signals from GitHub, Dev.to, Hacker News, and Reddit into one interface.
 
